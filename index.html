@@ -20,8 +20,9 @@
     .sex{display:grid;grid-template-columns:1fr 1fr;gap:7px}.sex input{position:absolute;opacity:0}.sex label{min-height:46px;border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer}.sex input:checked+label{background:var(--accent2);border-color:var(--accent);font-weight:800}
     button{border:0;border-radius:12px;background:var(--accent);color:#fff;font-weight:900;font-size:15px;min-height:48px;padding:0 18px;cursor:pointer}.full{grid-column:1/-1}.error{min-height:18px;color:var(--danger);font-size:13px;margin-top:8px}.resultbox{display:none;margin-top:16px}.resultbox.show{display:block}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{border:1px solid var(--line);border-radius:16px;padding:14px}.stat.accent{background:var(--accent2);border-color:transparent}.stat small{display:block;color:var(--muted);font-weight:700}.stat strong{display:block;font-size:25px;margin-top:4px}.hint{font-size:12px;color:var(--muted);line-height:1.5;margin:13px 0 0}
     .tracker{margin-top:18px}.foodrow{display:grid;grid-template-columns:1.4fr .7fr .7fr auto;gap:8px;align-items:end}.foodrow select,.foodrow input{min-height:44px;width:100%;border:1px solid var(--line);border-radius:11px;padding:9px;font-size:15px;background:#fff}.foodlist{margin-top:14px;border-top:1px solid var(--line)}.fooditem{display:grid;grid-template-columns:1fr auto;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.fooditem strong{display:block}.fooditem span{font-size:12px;color:var(--muted)}.remove{background:#f1f5f9;color:var(--ink);min-height:36px;padding:0 11px;font-size:13px}.total{display:flex;justify-content:space-between;align-items:center;margin-top:15px;padding:15px;border-radius:15px;background:#f8fafc}.total strong{font-size:24px}.macro{font-size:12px;color:var(--muted)}
+    .menu-card{margin-top:0}.menu-intro{color:var(--muted);line-height:1.6;margin-top:-6px}.menu-controls{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:end;margin-top:16px}.menu-controls button{min-width:190px}.menu-result{margin-top:18px;display:grid;gap:10px}.meal{border:1px solid var(--line);border-radius:16px;padding:15px;background:#fff}.meal-head{display:flex;justify-content:space-between;gap:12px;align-items:center}.meal h3{margin:0;font-size:17px}.meal-kcal{font-weight:900;color:var(--accent);white-space:nowrap}.meal p{margin:7px 0 0;color:var(--muted);line-height:1.5;font-size:14px}.menu-total{padding:14px 16px;border-radius:15px;background:var(--accent2);font-weight:900;display:flex;justify-content:space-between}
     section{scroll-margin-top:80px}.info{margin:42px 0}.info h2{font-size:28px;margin-bottom:10px}.info p,.info li{color:var(--muted);line-height:1.65}.info ul{padding-left:20px}.cta{background:var(--accent2);border-radius:22px;padding:24px;margin:20px 0}.cta h2{margin:0 0 8px}.footer{border-top:1px solid var(--line);margin-top:40px;padding:26px 0 40px;color:var(--muted);font-size:13px}.footerlinks{display:flex;gap:16px;flex-wrap:wrap}.footer a{text-decoration:none}
-    @media(max-width:780px){nav{display:none}.grid{grid-template-columns:1fr}.hero{padding-top:38px}.formgrid{grid-template-columns:1fr}.full{grid-column:auto}.foodrow{grid-template-columns:1fr 1fr}.foodrow .wide{grid-column:1/-1}.foodrow button{width:100%}}
+    @media(max-width:780px){nav{display:none}.grid{grid-template-columns:1fr}.hero{padding-top:38px}.formgrid{grid-template-columns:1fr}.full{grid-column:auto}.foodrow{grid-template-columns:1fr 1fr}.foodrow .wide{grid-column:1/-1}.foodrow button{width:100%}.menu-controls{grid-template-columns:1fr}.menu-controls button{width:100%}}
     @media(max-width:480px){.wrap{padding:0 14px}.card{padding:16px;border-radius:18px}.stats{grid-template-columns:1fr}.foodrow{grid-template-columns:1fr}}
   </style>
 </head>
@@ -91,6 +92,20 @@
 
   <div class="ad" aria-label="Spațiu publicitar"><span>SPATIU PUBLICITAR</span></div>
 
+  <section id="meniul-zilei" class="info">
+    <div class="card menu-card">
+      <div class="pill">NOU • MENIU PERSONALIZAT</div>
+      <h2>🍽️ Ce pot mânca azi?</h2>
+      <p class="menu-intro">Introdu câte calorii vrei să ai într-o zi și primești un exemplu simplu de meniu, împărțit pe mese.</p>
+      <div class="menu-controls">
+        <div class="field"><label for="dailyCalories">Ținta ta zilnică (kcal)</label><input id="dailyCalories" type="number" min="1000" max="4000" step="50" value="1400"></div>
+        <button id="makeMenu" type="button">Generează meniul</button>
+      </div>
+      <div id="menuResult" class="menu-result" aria-live="polite"></div>
+      <p class="hint">Exemplul este orientativ. Necesarul și aportul potrivit diferă de la o persoană la alta.</p>
+    </div>
+  </section>
+
   <section id="despre" class="info">
     <div class="cta">
       <h2>Ce poate deveni acest site?</h2>
@@ -147,6 +162,23 @@
     state.push({data:foods[Number(food.value)],grams:g});render();
   });
   document.getElementById("clearFood").addEventListener("click",()=>{state.length=0;render()});
+
+  const menuPlans=[
+    ["Mic dejun",["2 ouă fierte","roșii și castraveți","cafea simplă"],300],
+    ["Prânz",["piept de pui la grătar","salată mare de legume","1/2 lipie lavash"],520],
+    ["Gustare",["iaurt grecesc 2%","1 linguriță chia","un măr mic"],220],
+    ["Cină",["pește alb la cuptor","legume la tigaie fără mult ulei","murături"],360]
+  ];
+  function makeMenu(){
+    const target=Number(document.getElementById("dailyCalories").value);
+    const box=document.getElementById("menuResult");
+    if(!Number.isFinite(target)||target<1000||target>4000){box.innerHTML='<div class="error">Alege o țintă între 1000 și 4000 kcal.</div>';return}
+    const factor=target/1400; let total=0;
+    const cards=menuPlans.map(m=>{const kcal=Math.round(m[2]*factor/10)*10; total+=kcal; return '<div class="meal"><div class="meal-head"><h3>'+m[0]+'</h3><span class="meal-kcal">'+kcal+' kcal</span></div><p>'+m[1].join(' • ')+'</p></div>'}).join('');
+    box.innerHTML=cards+'<div class="menu-total"><span>Total orientativ</span><span>'+total+' kcal</span></div>';
+  }
+  document.getElementById("makeMenu").addEventListener("click",makeMenu);
+  makeMenu();
 
   document.getElementById("calc").addEventListener("submit",function(e){
     e.preventDefault();
