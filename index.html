@@ -15,7 +15,7 @@ label{display:block;font-weight:600;margin:11px 0 5px}input,select,button{width:
 button{margin-top:13px;background:#7c3aed;color:white;border:0;font-weight:700}.secondary{background:#ede9fe;color:#5b21b6}
 .grid,.tw{display:grid;grid-template-columns:1fr 1fr;gap:10px}.box{background:#faf5ff;padding:14px;border-radius:16px;margin-top:12px}
 .pill{display:inline-block;background:#ede9fe;color:#5b21b6;border-radius:99px;padding:5px 10px;font-size:12px;font-weight:700}
-.meal{border:1px solid #e5e7eb;border-radius:15px;padding:13px;margin-top:9px}.meal h3{margin:0 0 5px;font-size:17px}.meal p{margin:0;line-height:1.45}.kcal{float:right;color:#7c3aed;font-weight:800}
+.meal{border:1px solid #e5e7eb;border-radius:15px;padding:13px;margin-top:9px;overflow:hidden}.meal img{width:100%;height:190px;object-fit:cover;border-radius:13px;margin-bottom:10px}.meal h3{margin:0 0 5px;font-size:17px}.meal p{margin:0;line-height:1.45}.kcal{float:right;color:#7c3aed;font-weight:800}
 .total{margin-top:12px;padding:14px;background:#f3f4f6;border-radius:14px;text-align:center;font-weight:800}
 .foodrow{display:grid;grid-template-columns:1fr 85px 48px;gap:7px;margin-top:10px}.foodrow button{margin:0;padding:10px}.journal{margin-top:10px}.item{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #eee}
 .ad{min-height:90px;border:1px dashed #c4b5fd;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#8b5cf6;background:#faf8ff}
@@ -166,7 +166,13 @@ function menu(){
  let vals=base.map(x=>Math.round(t*x[2]));
  vals[0]+=t-vals.reduce((a,b)=>a+b,0);
 
- let chosen=[];
+ const photoFor={
+ 'Mic dejun':'mic-dejun.jpg',
+ 'Prânz':'pranz.jpg',
+ 'Cină':'cina.jpg',
+ 'Gustare':'mic-dejun.jpg'
+};
+let chosen=[];
  for(let i=0;i<c;i++){
    const mealName=base[i][0];
    const options=menuAlternatives[key].filter(x=>x[0]===mealName);
@@ -180,7 +186,7 @@ function menu(){
  }
 
  menuout.innerHTML='<div class="box"><b>Exemplu de meniu pentru '+t+' kcal</b></div>'+
- chosen.map((x,i)=>'<div class="meal"><span class="kcal">'+vals[i]+' kcal</span><h3>'+x[0]+'</h3><p>'+x[1]+'</p></div>').join('')+
+ chosen.map((x,i)=>'<div class="meal"><span class="kcal">'+vals[i]+' kcal</span><img src="'+photoFor[x[0]]+'" alt="'+x[1]+'"><h3>'+x[0]+'</h3><p>'+x[1]+'</p></div>').join('')+
  '<div class="total">Total meniu: '+vals.reduce((a,b)=>a+b,0)+' kcal</div>';
 }
 
