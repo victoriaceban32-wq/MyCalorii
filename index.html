@@ -166,12 +166,27 @@ function menu(){
  let vals=base.map(x=>Math.round(t*x[2]));
  vals[0]+=t-vals.reduce((a,b)=>a+b,0);
 
- const photoFor={
- 'Mic dejun':'mic-dejun.jpg',
- 'Prânz':'pranz.jpg',
- 'Cină':'cina.jpg',
- 'Gustare':'mic-dejun.jpg'
-};
+ function photoFor(meal,dish){
+  const d=dish.toLowerCase();
+  if(meal==="Mic dejun"){
+    if(d.includes("iaurt") || d.includes("chia") || d.includes("fruct")) return "mic-dejun-2.jpg";
+    if(d.includes("avocado")) return "mic-dejun-3.jpg";
+    return "mic-dejun.jpg";
+  }
+  if(meal==="Prânz"){
+    if(d.includes("mămălig") || d.includes("mamaliga")) return "pranz.jpg";
+    if(d.includes("pește") || d.includes("peste")) return "pranz-3.jpg";
+    if(d.includes("ton")) return "pranz-4.jpg";
+    return "pranz-2.jpg";
+  }
+  if(meal==="Cină"){
+    if(d.includes("supă") || d.includes("supa")) return "cina-4.jpg";
+    if(d.includes("paste") || d.includes("dovlecel")) return "cina-2.jpg";
+    if(d.includes("omlet") || d.includes("ou")) return "cina-3.jpg";
+    return "cina.jpg";
+  }
+  return "mic-dejun-2.jpg";
+}
 let chosen=[];
  for(let i=0;i<c;i++){
    const mealName=base[i][0];
@@ -186,7 +201,7 @@ let chosen=[];
  }
 
  menuout.innerHTML='<div class="box"><b>Exemplu de meniu pentru '+t+' kcal</b></div>'+
- chosen.map((x,i)=>'<div class="meal"><span class="kcal">'+vals[i]+' kcal</span><img src="'+photoFor[x[0]]+'" alt="'+x[1]+'"><h3>'+x[0]+'</h3><p>'+x[1]+'</p></div>').join('')+
+ chosen.map((x,i)=>'<div class="meal"><span class="kcal">'+vals[i]+' kcal</span><img src="'+photoFor(x[0],x[1])+'" alt="'+x[1]+'"><h3>'+x[0]+'</h3><p>'+x[1]+'</p></div>').join('')+
  '<div class="total">Total meniu: '+vals.reduce((a,b)=>a+b,0)+' kcal</div>';
 }
 
