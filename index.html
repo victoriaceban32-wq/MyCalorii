@@ -1,167 +1,99 @@
 <!doctype html>
 <html lang="ro">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Calorii Simplu — Calculator de calorii și jurnal alimentar</title>
-  <meta name="description" content="Calculează necesarul zilnic de calorii, IMC și urmărește alimentele și macronutrienții într-un jurnal simplu.">
-  <meta name="robots" content="index,follow">
-  <meta property="og:title" content="Calorii Simplu">
-  <meta property="og:description" content="Calculator de calorii și jurnal alimentar simplu și rapid.">
-  <meta property="og:type" content="website">
-  <meta name="theme-color" content="#7c3aed">
-  <style>
-    :root{--accent:#7c3aed;--accent2:#ede9fe;--ink:#172033;--muted:#64748b;--line:#e5e7eb;--bg:#f8fafc;--card:#fff;--ok:#15803d;--danger:#b42318}
-    *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
-    a{color:inherit}.wrap{max-width:1080px;margin:auto;padding:0 18px}.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}.nav{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{font-weight:900;font-size:20px;text-decoration:none}.brand span{color:var(--accent)}nav{display:flex;gap:18px;font-size:14px;font-weight:700}nav a{text-decoration:none;color:var(--muted)}
-    .hero{padding:54px 0 28px}.hero h1{font-size:clamp(32px,6vw,58px);line-height:1.02;margin:0 0 14px;letter-spacing:-.04em}.hero p{max-width:700px;color:var(--muted);font-size:18px;line-height:1.6;margin:0}.pill{display:inline-block;background:var(--accent2);color:var(--accent);padding:7px 11px;border-radius:999px;font-weight:800;font-size:12px;margin-bottom:13px}
-    .ad{min-height:78px;border:1px dashed #cbd5e1;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:12px;margin:22px 0;background:#fff}.ad span{opacity:.8}
-    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px}.card h2{margin:0 0 16px;font-size:21px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field label{display:block;font-size:13px;font-weight:800;margin-bottom:6px}.field input,.field select{width:100%;min-height:46px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:16px;background:#fff;color:var(--ink)}.field input:focus,.field select:focus{outline:3px solid var(--accent2);border-color:var(--accent)}
-    .sex{display:grid;grid-template-columns:1fr 1fr;gap:7px}.sex input{position:absolute;opacity:0}.sex label{min-height:46px;border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer}.sex input:checked+label{background:var(--accent2);border-color:var(--accent);font-weight:800}
-    button{border:0;border-radius:12px;background:var(--accent);color:#fff;font-weight:900;font-size:15px;min-height:48px;padding:0 18px;cursor:pointer}.full{grid-column:1/-1}.error{min-height:18px;color:var(--danger);font-size:13px;margin-top:8px}.resultbox{display:none;margin-top:16px}.resultbox.show{display:block}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{border:1px solid var(--line);border-radius:16px;padding:14px}.stat.accent{background:var(--accent2);border-color:transparent}.stat small{display:block;color:var(--muted);font-weight:700}.stat strong{display:block;font-size:25px;margin-top:4px}.hint{font-size:12px;color:var(--muted);line-height:1.5;margin:13px 0 0}
-    .tracker{margin-top:18px}.foodrow{display:grid;grid-template-columns:1.4fr .7fr .7fr auto;gap:8px;align-items:end}.foodrow select,.foodrow input{min-height:44px;width:100%;border:1px solid var(--line);border-radius:11px;padding:9px;font-size:15px;background:#fff}.foodlist{margin-top:14px;border-top:1px solid var(--line)}.fooditem{display:grid;grid-template-columns:1fr auto;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.fooditem strong{display:block}.fooditem span{font-size:12px;color:var(--muted)}.remove{background:#f1f5f9;color:var(--ink);min-height:36px;padding:0 11px;font-size:13px}.total{display:flex;justify-content:space-between;align-items:center;margin-top:15px;padding:15px;border-radius:15px;background:#f8fafc}.total strong{font-size:24px}.macro{font-size:12px;color:var(--muted)}
-    section{scroll-margin-top:80px}.info{margin:42px 0}.info h2{font-size:28px;margin-bottom:10px}.info p,.info li{color:var(--muted);line-height:1.65}.info ul{padding-left:20px}.cta{background:var(--accent2);border-radius:22px;padding:24px;margin:20px 0}.cta h2{margin:0 0 8px}.footer{border-top:1px solid var(--line);margin-top:40px;padding:26px 0 40px;color:var(--muted);font-size:13px}.footerlinks{display:flex;gap:16px;flex-wrap:wrap}.footer a{text-decoration:none}
-    @media(max-width:780px){nav{display:none}.grid{grid-template-columns:1fr}.hero{padding-top:38px}.formgrid{grid-template-columns:1fr}.full{grid-column:auto}.foodrow{grid-template-columns:1fr 1fr}.foodrow .wide{grid-column:1/-1}.foodrow button{width:100%}}
-    @media(max-width:480px){.wrap{padding:0 14px}.card{padding:16px;border-radius:18px}.stats{grid-template-columns:1fr}.foodrow{grid-template-columns:1fr}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="CaloriiSimplu - calculator de calorii, jurnal alimentar si meniu zilnic personalizat.">
+<title>CaloriiSimplu - Calculator de calorii si meniu</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#f7f5ff;color:#202124}
+header{padding:28px 16px 32px;text-align:center;color:white;background:linear-gradient(135deg,#7c3aed,#a855f7)}
+header h1{margin:0;font-size:30px}header p{margin:8px 0 0}
+main{max-width:760px;margin:auto;padding:14px}.card{background:white;border:1px solid #e5e7eb;border-radius:20px;padding:18px;margin:14px 0;box-shadow:0 5px 20px #0000000b}
+h2{margin:0 0 12px}.sub{color:#6b7280;font-size:14px;line-height:1.5}
+label{display:block;font-weight:600;margin:11px 0 5px}input,select,button{width:100%;padding:13px;border-radius:12px;border:1px solid #d1d5db;font:inherit}
+button{margin-top:13px;background:#7c3aed;color:white;border:0;font-weight:700}.secondary{background:#ede9fe;color:#5b21b6}
+.grid,.tw{display:grid;grid-template-columns:1fr 1fr;gap:10px}.box{background:#faf5ff;padding:14px;border-radius:16px;margin-top:12px}
+.pill{display:inline-block;background:#ede9fe;color:#5b21b6;border-radius:99px;padding:5px 10px;font-size:12px;font-weight:700}
+.meal{border:1px solid #e5e7eb;border-radius:15px;padding:13px;margin-top:9px}.meal h3{margin:0 0 5px;font-size:17px}.meal p{margin:0;line-height:1.45}.kcal{float:right;color:#7c3aed;font-weight:800}
+.total{margin-top:12px;padding:14px;background:#f3f4f6;border-radius:14px;text-align:center;font-weight:800}
+.foodrow{display:grid;grid-template-columns:1fr 85px 48px;gap:7px;margin-top:10px}.foodrow button{margin:0;padding:10px}.journal{margin-top:10px}.item{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #eee}
+.ad{min-height:90px;border:1px dashed #c4b5fd;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#8b5cf6;background:#faf8ff}
+footer{text-align:center;padding:25px 10px;color:#6b7280;font-size:13px}footer a{color:#7c3aed;text-decoration:none}
+@media(max-width:560px){.grid,.tw{grid-template-columns:1fr}.card{padding:16px}}
+</style>
 </head>
 <body>
-<header class="top">
-  <div class="wrap nav">
-    <a class="brand" href="#">Calorii<span>Simplu</span></a>
-    <nav><a href="#calculator">Calculator</a><a href="#jurnal">Jurnal</a><a href="#despre">Despre</a></nav>
-  </div>
-</header>
+<header><h1>💜 CaloriiSimplu</h1><p>Calculează, planifică și urmărește caloriile tale.</p></header>
+<main>
 
-<main class="wrap">
-  <section class="hero">
-    <div class="pill">CALCULATOR + JURNAL ALIMENTAR</div>
-    <h1>Înțelege-ți caloriile.<br>Ține-le simplu.</h1>
-    <p>Calculează o estimare a necesarului zilnic de energie și notează alimentele consumate într-un jurnal rapid, direct din telefon.</p>
-  </section>
+<section class="card">
+<h2>🔥 Calculator de calorii</h2>
+<p class="sub">Completează datele pentru o estimare orientativă a necesarului zilnic.</p>
+<div class="grid">
+<div><label>Sex</label><select id="sex"><option value="female">Femeie</option><option value="male">Bărbat</option></select></div>
+<div><label>Vârsta</label><input id="age" type="number" value="30"></div>
+<div><label>Greutate (kg)</label><input id="weight" type="number" value="65"></div>
+<div><label>Înălțime (cm)</label><input id="height" type="number" value="170"></div>
+</div>
+<label>Activitate</label>
+<select id="activity"><option value="1.2">Sedentară</option><option value="1.375">Ușor activă</option><option value="1.55">Moderat activă</option><option value="1.725">Foarte activă</option><option value="1.9">Extrem de activă</option></select>
+<button onclick="calc()">Calculează</button><div id="result" class="box" style="display:none"></div>
+</section>
 
-  <div class="ad" aria-label="Spațiu publicitar"><span>SPATIU PUBLICITAR — se conectează ulterior la rețeaua de reclame</span></div>
+<section class="card" id="meniul-zilei">
+<span class="pill">NOU • MENIU PERSONALIZAT</span>
+<h2 style="margin-top:10px">🍽️ Ce pot mânca azi?</h2>
+<p class="sub">Alege caloriile, stilul alimentar și numărul de mese. Primești imediat un exemplu de meniu pentru o zi.</p>
+<div class="box">
+<label>Calorii pe zi</label>
+<select id="target"><option>1200</option><option selected>1400</option><option>1600</option><option>1800</option></select>
+<div class="tw">
+<div><label>Stil alimentar</label><select id="style"><option value="eq">Echilibrat</option><option value="pr">Proteine + legume</option><option value="lc">Low-carb</option><option value="ke">Keto moderat</option><option value="ec">Economic</option></select></div>
+<div><label>Mese</label><select id="mealcount"><option value="2">2 mese</option><option value="3" selected>3 mese</option><option value="4">3 mese + gustare</option></select></div>
+</div>
+<button onclick="menu()">✨ Generează meniul</button>
+<button class="secondary" onclick="menu()">🔄 Schimbă meniul</button>
+</div>
+<div id="menuout"></div>
+<p class="sub">Meniul este orientativ și nu înlocuiește recomandarea unui medic sau dietetician.</p>
+</section>
 
-  <section id="calculator" class="grid">
-    <div class="card">
-      <h2>🔥 Calculatorul tău</h2>
-      <form id="calc" novalidate>
-        <div class="formgrid">
-          <div class="field"><label for="age">Vârsta</label><input id="age" type="number" min="13" max="100" placeholder="30"></div>
-          <div class="field"><label>Sex</label><div class="sex">
-            <div><input id="f" name="sex" value="f" type="radio" checked><label for="f">Femeie</label></div>
-            <div><input id="m" name="sex" value="m" type="radio"><label for="m">Bărbat</label></div>
-          </div></div>
-          <div class="field"><label for="weight">Greutate (kg)</label><input id="weight" type="number" min="30" max="300" step=".1" placeholder="65"></div>
-          <div class="field"><label for="height">Înălțime (cm)</label><input id="height" type="number" min="120" max="230" step=".1" placeholder="170"></div>
-          <div class="field full"><label for="activity">Activitate</label><select id="activity">
-            <option value="1.2">Sedentar — puțină mișcare</option>
-            <option value="1.375">Ușor activ — 1–3 zile/săptămână</option>
-            <option value="1.55">Moderat activ — 3–5 zile/săptămână</option>
-            <option value="1.725">Foarte activ — 6–7 zile/săptămână</option>
-            <option value="1.9">Extrem de activ — efort intens</option>
-          </select></div>
-        </div>
-        <button type="submit">Calculează</button>
-        <div id="calcError" class="error" aria-live="polite"></div>
-      </form>
-      <div id="results" class="resultbox" aria-live="polite">
-        <div class="stats">
-          <div class="stat"><small>Metabolism bazal</small><strong id="bmr">—</strong><small>kcal/zi</small></div>
-          <div class="stat accent"><small>Menținere estimată</small><strong id="maintain">—</strong><small>kcal/zi</small></div>
-          <div class="stat"><small>Deficit orientativ</small><strong id="loss">—</strong><small>kcal/zi</small></div>
-          <div class="stat"><small>IMC</small><strong id="bmi">—</strong><small id="bmiText">—</small></div>
-        </div>
-        <p class="hint">Estimările sunt orientative și nu reprezintă sfaturi medicale. Necesarul real poate varia.</p>
-      </div>
-    </div>
+<section class="card">
+<h2>🍽️ Jurnalul de azi</h2><p class="sub">Adaugă alimente și cantități pentru a urmări totalul.</p>
+<div class="foodrow">
+<select id="food"><option value="ou">Ou</option><option value="pui">Piept de pui</option><option value="peste">Pește</option><option value="branza">Brânză</option><option value="iaurt">Iaurt</option><option value="mamaliga">Mămăligă</option><option value="mar">Măr</option><option value="lavash">Lavaș</option><option value="legume">Legume</option></select>
+<input id="grams" type="number" value="100"><button onclick="add()">+</button>
+</div>
+<div id="journal" class="journal"></div><div class="total">Total: <span id="jt">0</span> kcal</div>
+</section>
 
-    <div class="card" id="jurnal">
-      <h2>🍽️ Jurnalul de azi</h2>
-      <div class="foodrow">
-        <div class="field wide"><label for="food">Aliment</label><select id="food"></select></div>
-        <div class="field"><label for="grams">Grame</label><input id="grams" type="number" min="1" max="3000" value="100"></div>
-        <div><button id="addFood" type="button">Adaugă</button></div>
-      </div>
-      <div id="foodList" class="foodlist"></div>
-      <div class="total"><div><strong id="dayTotal">0</strong> kcal<div class="macro" id="macros">Proteine 0 g • Carbohidrați 0 g • Grăsimi 0 g</div></div><button id="clearFood" class="remove" type="button">Șterge tot</button></div>
-      <p class="hint">Alimentele din listă sunt valori orientative per 100 g. Pentru produse ambalate, verifică eticheta.</p>
-    </div>
-  </section>
-
-  <div class="ad" aria-label="Spațiu publicitar"><span>SPATIU PUBLICITAR</span></div>
-
-  <section id="despre" class="info">
-    <div class="cta">
-      <h2>Ce poate deveni acest site?</h2>
-      <p>Calculatorul poate fi extins cu meniuri, rețete, conturi, obiective, statistici săptămânale și o versiune premium.</p>
-    </div>
-    <h2>Despre Calorii Simplu</h2>
-    <p>Acest instrument este conceput pentru orientare și educație nutrițională. Rezultatele nu sunt diagnostice și nu înlocuiesc recomandările unui medic sau dietetician.</p>
-    <ul>
-      <li>Calculator BMR și necesar energetic estimat.</li>
-      <li>Jurnal alimentar cu calorii și macronutrienți.</li>
-      <li>Interfață optimizată pentru telefon.</li>
-      <li>Structură pregătită pentru conținut, SEO și spații publicitare.</li>
-    </ul>
-  </section>
-
-  <div class="ad" aria-label="Spațiu publicitar"><span>SPATIU PUBLICITAR</span></div>
+<div class="ad">Spațiu publicitar</div>
+<section class="card"><h2>💡 Ce poate deveni acest site?</h2><p class="sub">Calculator de calorii, meniuri personalizate, jurnal alimentar și funcții premium.</p></section>
 </main>
-
-<footer class="footer">
-  <div class="wrap">
-    <div class="footerlinks"><a href="#despre">Despre</a><a href="privacy.html">Politica de confidențialitate</a><a href="terms.html">Termeni</a><a href="contact.html">Contact</a></div>
-    <p>© 2026 Calorii Simplu. Toate drepturile rezervate.</p>
-  </div>
-</footer>
+<footer>© 2026 CaloriiSimplu · <a href="privacy.html">Confidențialitate</a> · <a href="terms.html">Termeni</a> · <a href="contact.html">Contact</a></footer>
 
 <script>
-(function(){
-  const foods = [
-    ["Ou, întreg",143,12.6,0.7,9.5],["Piept de pui gătit",165,31,0,3.6],["Pește alb gătit",120,26,0,2],
-    ["Somon",208,20,0,13],["Brânză telemea",260,14,2,21],["Iaurt grecesc 2%",73,10,3.9,2],
-    ["Orez fiert",130,2.7,28,0.3],["Mămăligă",70,1.6,15,0.3],["Cartof fiert",87,1.9,20,0.1],
-    ["Avocado",160,2,8.5,14.7],["Măr",52,0.3,14,0.2],["Banană",89,1.1,23,0.3],
-    ["Roșie",18,0.9,3.9,0.2],["Castravete",15,0.7,3.6,0.1],["Salată verde",15,1.4,2.9,0.2],
-    ["Lavash",270,9,55,1.5],["Chia",486,16.5,42,30.7],["Migdale",579,21,22,50]
-  ];
-  const food = document.getElementById("food");
-  foods.forEach((f,i)=>{const o=document.createElement("option");o.value=i;o.textContent=f[0]+" — "+f[1]+" kcal/100g";food.appendChild(o);});
-  const state=[];
-  const euro=n=>Math.round(n).toLocaleString("ro-RO");
-  function render(){
-    const list=document.getElementById("foodList");list.innerHTML="";
-    let kcal=0,p=0,c=0,fat=0;
-    state.forEach((x,i)=>{const row=document.createElement("div");row.className="fooditem";const grams=x.grams/100;
-      kcal+=x.data[1]*grams;p+=x.data[2]*grams;c+=x.data[3]*grams;fat+=x.data[4]*grams;
-      row.innerHTML="<div><strong>"+x.data[0]+"</strong><span>"+x.grams+" g • "+Math.round(x.data[1]*grams)+" kcal</span></div>";
-      const b=document.createElement("button");b.type="button";b.className="remove";b.textContent="Șterge";b.addEventListener("click",()=>{state.splice(i,1);render()});row.appendChild(b);list.appendChild(row);
-    });
-    document.getElementById("dayTotal").textContent=euro(kcal);
-    document.getElementById("macros").textContent="Proteine "+Math.round(p)+" g • Carbohidrați "+Math.round(c)+" g • Grăsimi "+Math.round(fat)+" g";
-  }
-  document.getElementById("addFood").addEventListener("click",()=>{
-    const g=Number(document.getElementById("grams").value);
-    if(!Number.isFinite(g)||g<1||g>3000)return;
-    state.push({data:foods[Number(food.value)],grams:g});render();
-  });
-  document.getElementById("clearFood").addEventListener("click",()=>{state.length=0;render()});
-
-  document.getElementById("calc").addEventListener("submit",function(e){
-    e.preventDefault();
-    const age=Number(document.getElementById("age").value),w=Number(document.getElementById("weight").value),h=Number(document.getElementById("height").value),a=Number(document.getElementById("activity").value),sex=document.querySelector('input[name="sex"]:checked').value;
-    const error=document.getElementById("calcError");
-    if(![age,w,h].every(Number.isFinite)||age<13||age>100||w<30||w>300||h<120||h>230){error.textContent="Introdu valori valide pentru vârstă, greutate și înălțime.";return}
-    error.textContent="";
-    const bmr=sex==="m"?10*w+6.25*h-5*age+5:10*w+6.25*h-5*age-161;
-    const maintain=Math.round(bmr*a), deficit=Math.max(1200,Math.round(maintain-400)), bmi=w/((h/100)**2);
-    document.getElementById("bmr").textContent=euro(bmr);document.getElementById("maintain").textContent=euro(maintain);document.getElementById("loss").textContent=euro(deficit);document.getElementById("bmi").textContent=bmi.toFixed(1).replace(".",",");
-    document.getElementById("bmiText").textContent=bmi<18.5?"subponderal":bmi<25?"interval general normal":bmi<30?"supraponderal":"obezitate";
-    document.getElementById("results").classList.add("show");
-  });
-  render();
-})();
+function calc(){
+let s=sex.value,a=+age.value,w=+weight.value,h=+height.value,m=+activity.value;
+let b=10*w+6.25*h-5*a+(s==="male"?5:-161),t=Math.round(b*m),bmi=(w/(h/100)**2).toFixed(1);
+result.style.display="block";result.innerHTML="BMR estimat: <b>"+Math.round(b)+" kcal/zi</b><br>Menținere estimată: <b>"+t+" kcal/zi</b><br>IMC: <b>"+bmi+"</b>";
+}
+const menus={
+eq:[["Mic dejun","2 ouă, iaurt și fruct",.25],["Prânz","Piept de pui, mămăligă și salată",.40],["Cină","Pește cu legume",.27],["Gustare","Măr și semințe",.08]],
+pr:[["Mic dejun","Omletă cu legume și brânză",.27],["Prânz","Piept de pui cu salată mare",.40],["Cină","Pește cu legume",.25],["Gustare","Iaurt cu chia",.08]],
+lc:[["Mic dejun","Ouă, brânză și legume",.28],["Prânz","Pui cu salată și castraveți murați",.40],["Cină","Pește cu legume",.25],["Gustare","Iaurt cu chia",.07]],
+ke:[["Mic dejun","Ouă cu brânză și avocado",.30],["Prânz","Pui cu salată și ulei de măsline",.40],["Cină","Pește cu legume",.25],["Gustare","Brânză și câteva nuci",.05]],
+ec:[["Mic dejun","Ouă cu legume și puțină brânză",.27],["Prânz","Piept de pui cu mămăligă și salată",.40],["Cină","Ouă sau pește cu legume",.25],["Gustare","Măr",.08]]
+};
+function menu(){
+let t=+target.value,c=+mealcount.value,arr=menus[style.value].slice(0,c),vals=arr.map(x=>Math.round(t*x[2]));
+vals[0]+=t-vals.reduce((x,y)=>x+y,0);
+menuout.innerHTML='<div class="box"><b>Exemplu de meniu pentru '+t+' kcal</b></div>'+arr.map((x,i)=>'<div class="meal"><span class="kcal">'+vals[i]+' kcal</span><h3>'+x[0]+'</h3><p>'+x[1]+'</p></div>').join('')+'<div class="total">Total meniu: '+vals.reduce((x,y)=>x+y,0)+' kcal</div>';
+}
+const kcal={ou:155,pui:165,peste:130,branza:250,iaurt:60,mamaliga:80,mar:52,lavash:280,legume:30},names={ou:"Ou",pui:"Piept de pui",peste:"Pește",branza:"Brânză",iaurt:"Iaurt",mamaliga:"Mămăligă",mar:"Măr",lavash:"Lavaș",legume:"Legume"};
+let total=0;
+function add(){let f=food.value,g=+grams.value,k=Math.round(kcal[f]*g/100);total+=k;journal.innerHTML+=`<div class="item"><span>${names[f]} · ${g} g</span><b>${k} kcal</b></div>`;jt.textContent=total}
+menu();
 </script>
-</body>
-</html>
+</body></html>
