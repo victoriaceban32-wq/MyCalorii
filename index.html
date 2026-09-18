@@ -100,6 +100,7 @@ function photoFor(meal,dish){
 const d=dish.toLowerCase();
 
 if(meal==="Mic dejun"){
+if(d.includes("ou")||d.includes("omlet")||d.includes("avocado")) return "mic-dejun-3.jpg";
 if(d.includes("iaurt")||d.includes("chia")||d.includes("fruct")||d.includes("măr")) return "mic-dejun-2.jpg";
 return "mic-dejun-3.jpg";
 }
