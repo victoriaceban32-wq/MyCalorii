@@ -1,164 +1,104 @@
 <!doctype html>
 <html lang="ro">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="CaloriiSimplu - calculator de calorii, jurnal alimentar si meniu zilnic personalizat.">
-<title>CaloriiSimplu - Calculator de calorii si meniu</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>CaloriiSimplu — meniu personalizat</title>
+<meta name="description" content="Calculator de calorii și meniuri personalizate cu fotografii, gramaje și calorii.">
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#f7f5ff;color:#202124}
-header{padding:28px 16px 32px;text-align:center;color:white;background:linear-gradient(135deg,#7c3aed,#a855f7)}
-header h1{margin:0;font-size:30px}header p{margin:8px 0 0}
-main{max-width:760px;margin:auto;padding:14px}.card{background:white;border:1px solid #e5e7eb;border-radius:20px;padding:18px;margin:14px 0;box-shadow:0 5px 20px #0000000b}
-h2{margin:0 0 12px}.sub{color:#6b7280;font-size:14px;line-height:1.5}
-label{display:block;font-weight:600;margin:11px 0 5px}input,select,button{width:100%;padding:13px;border-radius:12px;border:1px solid #d1d5db;font:inherit}
-button{margin-top:13px;background:#7c3aed;color:white;border:0;font-weight:700}.secondary{background:#ede9fe;color:#5b21b6}
-.grid,.tw{display:grid;grid-template-columns:1fr 1fr;gap:10px}.box{background:#faf5ff;padding:14px;border-radius:16px;margin-top:12px}
-.pill{display:inline-block;background:#ede9fe;color:#5b21b6;border-radius:99px;padding:5px 10px;font-size:12px;font-weight:700}
-.meal{border:1px solid #e5e7eb;border-radius:15px;padding:13px;margin-top:9px;overflow:hidden}.meal img{width:100%;height:190px;object-fit:cover;border-radius:13px;margin-bottom:10px}.meal h3{margin:0 0 5px;font-size:17px}.meal p{margin:0;line-height:1.45}.kcal{float:right;color:#7c3aed;font-weight:800}
-.total{margin-top:12px;padding:14px;background:#f3f4f6;border-radius:14px;text-align:center;font-weight:800}
-.foodrow{display:grid;grid-template-columns:1fr 85px 48px;gap:7px;margin-top:10px}.foodrow button{margin:0;padding:10px}.journal{margin-top:10px}.item{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #eee}
-.ad{min-height:90px;border:1px dashed #c4b5fd;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#8b5cf6;background:#faf8ff}
-footer{text-align:center;padding:25px 10px;color:#6b7280;font-size:13px}footer a{color:#7c3aed;text-decoration:none}
-@media(max-width:560px){.grid,.tw{grid-template-columns:1fr}.card{padding:16px}}
+:root{--bg:#f8f6ff;--card:#fff;--ink:#18162b;--muted:#716c80;--p:#7040e8;--p2:#9b68ff;--line:#e9e4f5;--shadow:0 8px 28px rgba(63,38,120,.09)}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#faf9ff,#fff 45%,#f8f6ff);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+header{padding:20px 15px 13px;position:sticky;top:0;z-index:5;background:rgba(255,255,255,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.brand{font-size:28px;font-weight:900;letter-spacing:-1px}.brand span{color:var(--p)}.tag{font-size:13px;color:var(--muted);margin-top:2px}
+main{max-width:1120px;margin:auto;padding:16px 12px 70px}.hero{background:linear-gradient(135deg,#fff,#f0eaff);border:1px solid var(--line);border-radius:26px;padding:20px;box-shadow:var(--shadow)}
+h1{font-size:32px;line-height:1.05;margin:0 0 7px}h2{font-size:24px;margin:25px 0 12px}.sub{color:var(--muted);font-size:15px}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:17px}.panel{background:#fff;border:1px solid var(--line);border-radius:19px;padding:15px}.label{font-weight:850;margin-bottom:9px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}button,.chip{font:inherit;border:1px solid #ddd5f5;background:#fff;color:#3c2c69;border-radius:11px;padding:10px 12px;font-weight:750;cursor:pointer}.chip.active,.primary{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;border-color:transparent}
+input,select{width:100%;padding:11px;border:1px solid #ddd5f5;border-radius:11px;font:inherit;margin-top:9px}.generate{width:100%;margin-top:13px;font-size:16px}
+.summary{display:flex;flex-wrap:wrap;gap:10px;margin:17px 0}.stat{background:#fff;border:1px solid var(--line);border-radius:17px;padding:11px 14px}.stat b{display:block;color:var(--p);font-size:19px}.stat small{color:var(--muted)}
+.menuGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.card{background:#fff;border:1px solid var(--line);border-radius:19px;overflow:hidden;box-shadow:var(--shadow)}.card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}.cardBody{padding:13px}.meal{font-size:12px;font-weight:900;color:var(--p);text-transform:uppercase;letter-spacing:.4px}.title{font-size:17px;font-weight:900;line-height:1.16;margin:4px 0 8px}.kcal{color:var(--p);font-size:18px;font-weight:900;margin-bottom:8px}.ingredients{border-top:1px solid var(--line);padding-top:7px}.ingredient{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;padding:3px 0}.ingredient span:last-child{font-weight:850;white-space:nowrap}
+.gallery{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}.gcard{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}.gcard img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}.gcard div{padding:7px;font-size:12px;font-weight:800}.gcard small{display:block;color:var(--p);margin-top:2px}
+.note{margin-top:17px;background:#f0ebff;color:#4d3b74;border-radius:15px;padding:13px;font-size:12.5px}footer{text-align:center;color:var(--muted);font-size:12px;padding:28px 10px}
+@media(max-width:850px){.menuGrid{grid-template-columns:repeat(2,1fr)}.gallery{grid-template-columns:repeat(3,1fr)}}@media(max-width:560px){.controls{grid-template-columns:1fr}h1{font-size:29px}.menuGrid{grid-template-columns:1fr}.gallery{grid-template-columns:repeat(2,1fr)}main{padding-left:10px;padding-right:10px}}
 </style>
 </head>
 <body>
-<header><h1>💜 CaloriiSimplu</h1><p>Calculează, planifică și urmărește caloriile tale.</p></header>
+<header><div class="brand">Calorii<span>Simplu</span></div><div class="tag">Mâncare bună. Un stil de viață mai sănătos.</div></header>
 <main>
-<section class="card">
-<h2>🔥 Calculator de calorii</h2>
-<p class="sub">Completează datele pentru o estimare orientativă a necesarului zilnic.</p>
-<div class="grid">
-<div><label>Sex</label><select id="sex"><option value="female">Femeie</option><option value="male">Bărbat</option></select></div>
-<div><label>Vârsta</label><input id="age" type="number" value="30"></div>
-<div><label>Greutate (kg)</label><input id="weight" type="number" value="65"></div>
-<div><label>Înălțime (cm)</label><input id="height" type="number" value="170"></div>
+<section class="hero">
+<h1>Ce pot mânca azi?</h1><div class="sub">Meniu personalizat cu fotografie proprie, ingrediente, gramaj și calorii pentru fiecare masă.</div>
+<div class="controls">
+<div class="panel"><div class="label">Alege ținta de calorii</div><div class="chips" id="calChips"></div><input id="customKcal" type="number" min="1000" max="3000" step="50" placeholder="Sau introdu propria țintă (1000–3000 kcal)"></div>
+<div class="panel"><div class="label">Stilul alimentar</div><div class="chips" id="styleChips">
+<button class="chip active" data-style="Echilibrat">Echilibrat</button><button class="chip" data-style="Proteine + legume">Proteine + legume</button><button class="chip" data-style="Low-carb">Low-carb</button><button class="chip" data-style="Keto moderat">Keto moderat</button><button class="chip" data-style="Economic">Economic</button><button class="chip" data-style="Vegetarian">Vegetarian</button>
+</div><div class="label" style="margin-top:13px">Număr de mese</div><select id="mealCount"><option value="3">3 mese</option><option value="4">3 mese + gustare</option><option value="2">2 mese</option></select></div>
 </div>
-<label>Activitate</label>
-<select id="activity"><option value="1.2">Sedentară</option><option value="1.375">Ușor activă</option><option value="1.55">Moderat activă</option><option value="1.725">Foarte activă</option><option value="1.9">Extrem de activă</option></select>
-<button onclick="calc()">Calculează</button><div id="result" class="box" style="display:none"></div>
+<button class="primary generate" id="generate">✨ Generează meniul</button>
 </section>
-
-<section class="card" id="meniul-zilei">
-<span class="pill">NOU • MENIU PERSONALIZAT</span>
-<h2 style="margin-top:10px">🍽️ Ce pot mânca azi?</h2>
-<p class="sub">Alege caloriile, stilul alimentar și numărul de mese. Primești imediat un exemplu de meniu pentru o zi.</p>
-<div class="box">
-<label>Calorii pe zi</label>
-<select id="target"><option>1200</option><option selected>1400</option><option>1600</option><option>1800</option></select>
-<div class="tw">
-<div><label>Stil alimentar</label><select id="style"><option value="eq">Echilibrat</option><option value="pr">Proteine + legume</option><option value="lc">Low-carb</option><option value="ke">Keto moderat</option><option value="ec">Economic</option></select></div>
-<div><label>Mese</label><select id="mealcount"><option value="2">2 mese</option><option value="3" selected>3 mese</option><option value="4">3 mese + gustare</option></select></div>
-</div>
-<button onclick="menu()">✨ Generează meniul</button><button class="secondary" onclick="menu()">🔄 Schimbă meniul</button>
-</div>
-<div id="menuout"></div>
-<p class="sub">Meniul este orientativ și nu înlocuiește recomandarea unui medic sau dietetician.</p>
-</section>
-
-<section class="card">
-<h2>🍽️ Jurnalul de azi</h2><p class="sub">Adaugă alimente și cantități pentru a urmări totalul.</p>
-<div class="foodrow">
-<select id="food"><option value="ou">Ou</option><option value="pui">Piept de pui</option><option value="peste">Pește</option><option value="branza">Brânză</option><option value="iaurt">Iaurt</option><option value="mamaliga">Mămăligă</option><option value="mar">Măr</option><option value="lavash">Lavaș</option><option value="legume">Legume</option></select>
-<input id="grams" type="number" value="100"><button onclick="add()">+</button>
-</div>
-<div id="journal" class="journal"></div><div class="total">Total: <span id="jt">0</span> kcal</div>
-</section>
-<div class="ad">Spațiu publicitar</div>
-<section class="card"><h2>💡 Ce poate deveni acest site?</h2><p class="sub">Calculator de calorii, meniuri personalizate, jurnal alimentar și funcții premium.</p></section>
-</main>
-<footer>© 2026 CaloriiSimplu · <a href="privacy.html">Confidențialitate</a> · <a href="terms.html">Termeni</a> · <a href="contact.html">Contact</a></footer>
-
+<div class="summary" id="summary"></div>
+<h2>Meniul tău</h2><div class="menuGrid" id="menu"></div><button class="primary generate" id="shuffle">🔄 Schimbă meniul</button>
+<h2>Idei de mese — 42 de preparate cu fotografii</h2><div class="gallery" id="gallery"></div>
+<div class="note">Caloriile sunt estimative, iar gramajele sunt orientative. Pentru obiective medicale sau diete foarte restrictive, consultă un specialist.</div>
+</main><footer>CaloriiSimplu • Calculator • Meniu • Jurnal • Rețete</footer>
 <script>
-function calc(){
-let s=sex.value,a=+age.value,w=+weight.value,h=+height.value,m=+activity.value;
-let b=10*w+6.25*h-5*a+(s==="male"?5:-161),t=Math.round(b*m),bmi=(w/(h/100)**2).toFixed(1);
-result.style.display="block";result.innerHTML="BMR estimat: <b>"+Math.round(b)+" kcal/zi</b><br>Menținere estimată: <b>"+t+" kcal/zi</b><br>IMC: <b>"+bmi+"</b>";
-}
-
-const menus={
-eq:[["Mic dejun","2 ouă, iaurt și fruct",.25],["Prânz","Piept de pui, mămăligă și salată",.40],["Cină","Pește cu legume",.27],["Gustare","Măr și semințe",.08]],
-pr:[["Mic dejun","Omletă cu legume și brânză",.27],["Prânz","Piept de pui cu salată mare",.40],["Cină","Pește cu legume",.25],["Gustare","Iaurt cu chia",.08]],
-lc:[["Mic dejun","Ouă, brânză și legume",.28],["Prânz","Pui cu salată și castraveți murați",.40],["Cină","Pește cu legume",.25],["Gustare","Iaurt cu chia",.07]],
-ke:[["Mic dejun","Ouă cu brânză și avocado",.30],["Prânz","Pui cu salată și ulei de măsline",.40],["Cină","Pește cu legume",.25],["Gustare","Brânză și câteva nuci",.05]],
-ec:[["Mic dejun","Ouă cu legume și puțină brânză",.27],["Prânz","Piept de pui cu mămăligă și salată",.40],["Cină","Ouă sau pește cu legume",.25],["Gustare","Măr",.08]]
-};
-
-const menuAlternatives={
-eq:[["Mic dejun","Omletă cu legume și brânză"],["Mic dejun","2 ouă, iaurt și un măr"],["Mic dejun","Iaurt grecesc cu chia și fruct"],["Prânz","Piept de pui cu salată și puțin lavaș"],["Prânz","Pui la cuptor cu mămăligă și salată"],["Prânz","Pește cu legume și salată"],["Cină","Pește la cuptor cu legume"],["Cină","Ouă cu legume și brânză"],["Cină","Pui cu salată mare"],["Gustare","Măr și câteva semințe"],["Gustare","Iaurt cu chia"],["Gustare","Un fruct de sezon"]],
-pr:[["Mic dejun","3 ouă cu legume"],["Mic dejun","Omletă cu brânză și roșii"],["Mic dejun","Ouă cu avocado și legume"],["Prânz","Piept de pui cu salată mare"],["Prânz","Pui la grătar cu legume"],["Prânz","Pește cu broccoli și salată"],["Cină","Pește cu dovlecel și salată"],["Cină","Pui cu legume"],["Cină","Ouă cu salată verde"],["Gustare","Iaurt cu chia"],["Gustare","Ou fiert"],["Gustare","Brânză"]],
-lc:[["Mic dejun","Ouă, brânză și legume"],["Mic dejun","Omletă cu brânză și avocado"],["Mic dejun","Ouă cu avocado și roșii"],["Prânz","Pui cu salată și castraveți murați"],["Prânz","Piept de pui cu salată verde"],["Prânz","Pui cu legume la tigaie"],["Cină","Pește cu legume"],["Cină","Pește cu dovlecel"],["Cină","Pește cu broccoli"],["Gustare","Iaurt cu chia"],["Gustare","Câteva nuci"],["Gustare","Brânză"]],
-ke:[["Mic dejun","Ouă cu brânză și avocado"],["Mic dejun","Omletă cu brânză și avocado"],["Mic dejun","Ouă, avocado și brânză"],["Prânz","Pui cu salată și ulei de măsline"],["Prânz","Pui la grătar cu salată verde"],["Prânz","Pui cu legume verzi"],["Cină","Pește cu dovlecel și salată"],["Cină","Pește cu broccoli"],["Cină","Pește cu legume cu puțini carbohidrați"],["Gustare","Brânză și câteva nuci"],["Gustare","Ou fiert"],["Gustare","Nuci"]],
-ec:[["Mic dejun","Ouă cu legume și puțină brânză"],["Mic dejun","2 ouă și iaurt simplu"],["Mic dejun","Omletă cu legume"],["Prânz","Piept de pui cu mămăligă și salată"],["Prânz","Pui cu mămăligă și salată de varză"],["Prânz","Pui la cuptor cu legume"],["Cină","Ouă sau pește cu legume"],["Cină","Omletă cu legume"],["Cină","Pește cu salată"],["Gustare","Măr"],["Gustare","Un fruct de sezon"],["Gustare","Iaurt simplu"]]
-};
-
-let lastMenuSignature="";
-
-/* IMPORTANT: imaginea este aleasă după aliment, nu doar după masa zilei. */
-function photoFor(meal,dish){
-const d=dish.toLowerCase();
-
-if(meal==="Mic dejun"){
-if(d.includes("ou")||d.includes("omlet")||d.includes("avocado")) return "mic-dejun-3.jpg";
-if(d.includes("iaurt")||d.includes("chia")||d.includes("fruct")||d.includes("măr")) return "mic-dejun-2.jpg";
-return "mic-dejun-3.jpg";
-}
-
-if(meal==="Prânz"){
-if(d.includes("mămălig")||d.includes("mamaliga")) return "pranz.jpg";
-if(d.includes("pește")||d.includes("peste")) return "pranz-3.jpg";
-if(d.includes("ton")) return "pranz-4.jpg";
-return "pranz-2.jpg";
-}
-
-if(meal==="Cină"){
-if(d.includes("creveți")||d.includes("creveti")) return "cina-2.jpg";
-if(d.includes("supă")||d.includes("supa")) return "cina-4.jpg";
-if(d.includes("omlet")||d.includes("ou")) return "cina-3.jpg";
-if(d.includes("pui")) return "pranz-2.jpg";
-if(d.includes("pește")||d.includes("peste")) return "cina.jpg";
-return "cina.jpg";
-}
-
-return "mic-dejun-2.jpg";
-}
-
-function menu(){
-const t=+target.value,c=+mealcount.value,key=style.value;
-const base=menus[key].slice(0,c);
-let vals=base.map(x=>Math.round(t*x[2]));
-vals[0]+=t-vals.reduce((a,b)=>a+b,0);
-
-let chosen=[];
-for(let i=0;i<c;i++){
-const mealName=base[i][0];
-const options=menuAlternatives[key].filter(x=>x[0]===mealName);
-let pick=options[Math.floor(Math.random()*options.length)];
-let signature=pick[0]+"|"+pick[1];
-
-if(options.length>1&&signature===lastMenuSignature){
-pick=options[(options.findIndex(x=>x[1]===pick[1])+1)%options.length];
-}
-chosen.push(pick);
-lastMenuSignature=signature;
-}
-
-menuout.innerHTML='<div class="box"><b>Exemplu de meniu pentru '+t+' kcal</b></div>'+
-chosen.map((x,i)=>'<div class="meal"><span class="kcal">'+vals[i]+' kcal</span><img src="'+photoFor(x[0],x[1])+'" alt="'+x[1]+'"><h3>'+x[0]+'</h3><p>'+x[1]+'</p></div>').join('')+
-'<div class="total">Total meniu: '+vals.reduce((a,b)=>a+b,0)+' kcal</div>';
-}
-
-const kcal={ou:155,pui:165,peste:130,branza:250,iaurt:60,mamaliga:80,mar:52,lavash:280,legume:30},
-names={ou:"Ou",pui:"Piept de pui",peste:"Pește",branza:"Brânză",iaurt:"Iaurt",mamaliga:"Mămăligă",mar:"Măr",lavash:"Lavaș",legume:"Legume"};
-let total=0;
-function add(){
-let f=food.value,g=+grams.value,k=Math.round(kcal[f]*g/100);
-total+=k;
-journal.innerHTML+=`<div class="item"><span>${names[f]} · ${g} g</span><b>${k} kcal</b></div>`;
-jt.textContent=total;
-}
-menu();
+const foods=[
+{"meal":"Mic dejun","name":"Omletă cu legume","img":"images/omleta-cu-legume.jpg","kcal":280,"items":[{"name":"Ouă","grams":"2 buc. (100 g)"},{"name":"Roșii","grams":"100 g"},{"name":"Ardei","grams":"60 g"},{"name":"Ulei de măsline","grams":"5 g"}]},
+{"meal":"Mic dejun","name":"Ouă cu avocado","img":"images/oua-cu-avocado.jpg","kcal":320,"items":[{"name":"Ouă","grams":"2 buc. (100 g)"},{"name":"Avocado","grams":"70 g"},{"name":"Roșii cherry","grams":"100 g"},{"name":"Pâine integrală","grams":"30 g"}]},
+{"meal":"Mic dejun","name":"Iaurt grecesc cu fructe","img":"images/iaurt-grecesc-cu-fructe.jpg","kcal":250,"items":[{"name":"Iaurt grecesc","grams":"170 g"},{"name":"Fructe de pădure","grams":"100 g"},{"name":"Semințe chia","grams":"10 g"}]},
+{"meal":"Mic dejun","name":"Clătite proteice","img":"images/clatite-proteice.jpg","kcal":300,"items":[{"name":"Ou","grams":"1 buc. (50 g)"},{"name":"Ovăz","grams":"40 g"},{"name":"Brânză cottage","grams":"80 g"},{"name":"Banana","grams":"70 g"}]},
+{"meal":"Mic dejun","name":"Terci de ovăz cu fructe","img":"images/terci-de-ovaz.jpg","kcal":280,"items":[{"name":"Ovăz","grams":"45 g"},{"name":"Lapte","grams":"150 ml"},{"name":"Banana","grams":"70 g"},{"name":"Nuci","grams":"10 g"}]},
+{"meal":"Mic dejun","name":"Toast cu somon și avocado","img":"images/toast-cu-somon.jpg","kcal":320,"items":[{"name":"Pâine integrală","grams":"50 g"},{"name":"Somon afumat","grams":"50 g"},{"name":"Avocado","grams":"50 g"},{"name":"Castravete","grams":"50 g"}]},
+{"meal":"Mic dejun","name":"Brânză cottage cu fructe","img":"images/branza-cottage-cu-fructe.jpg","kcal":260,"items":[{"name":"Brânză cottage","grams":"150 g"},{"name":"Fructe de pădure","grams":"100 g"},{"name":"Semințe","grams":"10 g"}]},
+{"meal":"Mic dejun","name":"Smoothie bowl","img":"images/smoothie-bowl.jpg","kcal":290,"items":[{"name":"Iaurt","grams":"150 g"},{"name":"Fructe de pădure","grams":"120 g"},{"name":"Banana","grams":"60 g"},{"name":"Nuci","grams":"10 g"}]},
+{"meal":"Mic dejun","name":"Sandwich cu ou și legume","img":"images/sandwich-cu-ou-si-legume.jpg","kcal":310,"items":[{"name":"Ou","grams":"1 buc. (50 g)"},{"name":"Pâine integrală","grams":"60 g"},{"name":"Roșii","grams":"80 g"},{"name":"Salată verde","grams":"30 g"}]},
+{"meal":"Mic dejun","name":"Chia pudding","img":"images/chia-pudding.jpg","kcal":250,"items":[{"name":"Semințe chia","grams":"25 g"},{"name":"Lapte","grams":"150 ml"},{"name":"Căpșuni","grams":"100 g"}]},
+{"meal":"Mic dejun","name":"Mămăligă cu brânză","img":"images/mamaliga-cu-branza.jpg","kcal":320,"items":[{"name":"Mămăligă","grams":"180 g"},{"name":"Brânză","grams":"60 g"},{"name":"Iaurt","grams":"80 g"}]},
+{"meal":"Mic dejun","name":"Avocado toast cu ou","img":"images/avocado-toast.jpg","kcal":300,"items":[{"name":"Pâine integrală","grams":"50 g"},{"name":"Avocado","grams":"60 g"},{"name":"Ou","grams":"1 buc. (50 g)"},{"name":"Roșii","grams":"80 g"}]},
+{"meal":"Prânz","name":"Piept de pui la grătar","img":"images/piept-de-pui-la-gratar.jpg","kcal":450,"items":[{"name":"Piept de pui","grams":"150 g"},{"name":"Salată mixtă","grams":"200 g"},{"name":"Roșii","grams":"100 g"},{"name":"Ulei de măsline","grams":"10 g"}]},
+{"meal":"Prânz","name":"Somon cu quinoa","img":"images/somon-cu-quinoa.jpg","kcal":480,"items":[{"name":"Somon","grams":"130 g"},{"name":"Quinoa fiartă","grams":"120 g"},{"name":"Broccoli","grams":"150 g"},{"name":"Lămâie","grams":"20 g"}]},
+{"meal":"Prânz","name":"Saramură de pește","img":"images/saramura-de-peste.jpg","kcal":400,"items":[{"name":"Pește","grams":"160 g"},{"name":"Roșii","grams":"150 g"},{"name":"Ardei","grams":"80 g"},{"name":"Mămăligă","grams":"100 g"}]},
+{"meal":"Prânz","name":"Supă cremă de legume","img":"images/supa-crema-de-legume.jpg","kcal":250,"items":[{"name":"Dovleac","grams":"150 g"},{"name":"Morcov","grams":"80 g"},{"name":"Ceapă","grams":"40 g"},{"name":"Iaurt","grams":"50 g"}]},
+{"meal":"Prânz","name":"Tocăniță de pui","img":"images/tocanita-de-pui.jpg","kcal":420,"items":[{"name":"Piept de pui","grams":"150 g"},{"name":"Legume","grams":"250 g"},{"name":"Ulei de măsline","grams":"10 g"}]},
+{"meal":"Prânz","name":"Chiftele de curcan cu legume","img":"images/chiftele-de-curcan.jpg","kcal":430,"items":[{"name":"Carne de curcan","grams":"150 g"},{"name":"Broccoli","grams":"150 g"},{"name":"Conopidă","grams":"120 g"},{"name":"Ulei","grams":"5 g"}]},
+{"meal":"Prânz","name":"Salată cu ton","img":"images/salata-cu-ton.jpg","kcal":380,"items":[{"name":"Ton în suc propriu","grams":"120 g"},{"name":"Ou","grams":"1 buc. (50 g)"},{"name":"Salată","grams":"150 g"},{"name":"Roșii","grams":"100 g"},{"name":"Ulei","grams":"5 g"}]},
+{"meal":"Prânz","name":"Wrap cu pui","img":"images/wrap-cu-pui.jpg","kcal":380,"items":[{"name":"Lavash","grams":"60 g"},{"name":"Piept de pui","grams":"100 g"},{"name":"Salată","grams":"80 g"},{"name":"Roșii","grams":"80 g"},{"name":"Iaurt","grams":"30 g"}]},
+{"meal":"Prânz","name":"Prânz vegetarian","img":"images/pranz-vegetarian.jpg","kcal":350,"items":[{"name":"Năut fiert","grams":"100 g"},{"name":"Quinoa fiartă","grams":"80 g"},{"name":"Avocado","grams":"50 g"},{"name":"Legume","grams":"150 g"}]},
+{"meal":"Prânz","name":"Piept de curcan cu legume","img":"images/piept-de-curcan.jpg","kcal":420,"items":[{"name":"Piept de curcan","grams":"150 g"},{"name":"Legume","grams":"250 g"},{"name":"Ulei","grams":"10 g"}]},
+{"meal":"Prânz","name":"Mămăligă cu pește","img":"images/mamaliga-cu-peste.jpg","kcal":400,"items":[{"name":"Pește","grams":"150 g"},{"name":"Mămăligă","grams":"150 g"},{"name":"Brânză","grams":"30 g"},{"name":"Salată","grams":"100 g"}]},
+{"meal":"Prânz","name":"Bol cu quinoa","img":"images/bol-cu-quinoa.jpg","kcal":420,"items":[{"name":"Quinoa fiartă","grams":"120 g"},{"name":"Năut","grams":"80 g"},{"name":"Legume","grams":"200 g"},{"name":"Avocado","grams":"40 g"}]},
+{"meal":"Cină","name":"Somon cu broccoli","img":"images/somon-cu-broccoli.jpg","kcal":420,"items":[{"name":"Somon","grams":"140 g"},{"name":"Broccoli","grams":"200 g"},{"name":"Lămâie","grams":"20 g"},{"name":"Ulei","grams":"5 g"}]},
+{"meal":"Cină","name":"Cod cu legume","img":"images/cod-cu-legume.jpg","kcal":380,"items":[{"name":"Cod","grams":"170 g"},{"name":"Dovlecel","grams":"150 g"},{"name":"Roșii","grams":"100 g"},{"name":"Ulei","grams":"10 g"}]},
+{"meal":"Cină","name":"Piept de pui cu legume","img":"images/piept-de-pui-cu-legume.jpg","kcal":400,"items":[{"name":"Piept de pui","grams":"150 g"},{"name":"Legume","grams":"250 g"},{"name":"Ulei","grams":"5 g"}]},
+{"meal":"Cină","name":"Legume la cuptor","img":"images/legume-la-cuptor.jpg","kcal":320,"items":[{"name":"Dovlecel","grams":"150 g"},{"name":"Ardei","grams":"100 g"},{"name":"Vinete","grams":"100 g"},{"name":"Brânză","grams":"50 g"},{"name":"Ulei","grams":"5 g"}]},
+{"meal":"Cină","name":"Omletă cu spanac","img":"images/omleta-cu-spanac.jpg","kcal":300,"items":[{"name":"Ouă","grams":"2 buc. (100 g)"},{"name":"Spanac","grams":"100 g"},{"name":"Brânză","grams":"30 g"},{"name":"Ulei","grams":"5 g"}]},
+{"meal":"Cină","name":"Supă de linte","img":"images/supa-de-linte.jpg","kcal":280,"items":[{"name":"Linte fiartă","grams":"180 g"},{"name":"Morcov","grams":"70 g"},{"name":"Ceapă","grams":"40 g"},{"name":"Roșii","grams":"100 g"}]},
+{"meal":"Gustare","name":"Nuci și fructe","img":"images/nuci-si-fructe.jpg","kcal":200,"items":[{"name":"Nuci","grams":"20 g"},{"name":"Fructe de pădure","grams":"100 g"}]},
+{"meal":"Gustare","name":"Hummus cu legume","img":"images/hummus-cu-legume.jpg","kcal":180,"items":[{"name":"Hummus","grams":"60 g"},{"name":"Morcov","grams":"100 g"},{"name":"Castravete","grams":"100 g"}]},
+{"meal":"Gustare","name":"Iaurt cu miere","img":"images/iaurt-cu-miere.jpg","kcal":210,"items":[{"name":"Iaurt grecesc","grams":"170 g"},{"name":"Miere","grams":"10 g"},{"name":"Nuci","grams":"10 g"}]},
+{"meal":"Gustare","name":"Fructe proaspete","img":"images/fructe-proaspete.jpg","kcal":120,"items":[{"name":"Fructe de sezon","grams":"200 g"}]},
+{"meal":"Gustare","name":"Baton proteic","img":"images/baton-proteic.jpg","kcal":200,"items":[{"name":"Baton proteic","grams":"1 buc. (50 g)"}]},
+{"meal":"Gustare","name":"Brânză cu roșii","img":"images/branza-cu-rosii.jpg","kcal":180,"items":[{"name":"Brânză","grams":"60 g"},{"name":"Roșii","grams":"150 g"}]},
+{"meal":"Gustare","name":"Shake proteic","img":"images/shake-proteic.jpg","kcal":190,"items":[{"name":"Lapte","grams":"200 ml"},{"name":"Proteină pudră","grams":"20 g"}]},
+{"meal":"Gustare","name":"Măr cu unt de arahide","img":"images/mar-cu-unt-de-arahide.jpg","kcal":200,"items":[{"name":"Măr","grams":"180 g"},{"name":"Unt de arahide","grams":"20 g"}]},
+{"meal":"Gustare","name":"Castraveți cu iaurt","img":"images/castraveti-cu-iaurt.jpg","kcal":120,"items":[{"name":"Castraveți","grams":"200 g"},{"name":"Iaurt","grams":"100 g"},{"name":"Mărar","grams":"5 g"}]},
+{"meal":"Gustare","name":"Salată de fructe","img":"images/salata-de-fructe.jpg","kcal":180,"items":[{"name":"Fructe diverse","grams":"250 g"}]},
+{"meal":"Gustare","name":"Budincă de chia","img":"images/budinca-de-chia.jpg","kcal":220,"items":[{"name":"Chia","grams":"20 g"},{"name":"Lapte","grams":"150 ml"},{"name":"Zmeură","grams":"100 g"}]},
+{"meal":"Gustare","name":"Ciocolată neagră","img":"images/ciocolata-neagra.jpg","kcal":120,"items":[{"name":"Ciocolată neagră","grams":"20 g"}]}
+];
+const calorieTargets=[1000,1200,1400,1600,1800,2000,2200,2500,2800,3000];
+let target=1400,style="Echilibrat",mealCount=3,seed=0;
+const calChips=document.getElementById("calChips");
+calorieTargets.forEach(v=>{const b=document.createElement("button");b.className="chip"+(v===target?" active":"");b.textContent=v;b.onclick=()=>{target=v;document.getElementById("customKcal").value="";document.querySelectorAll("#calChips .chip").forEach(x=>x.classList.remove("active"));b.classList.add("active");generateMenu()};calChips.appendChild(b)});
+document.querySelectorAll("#styleChips .chip").forEach(b=>b.onclick=()=>{style=b.dataset.style;document.querySelectorAll("#styleChips .chip").forEach(x=>x.classList.remove("active"));b.classList.add("active");generateMenu()});
+document.getElementById("mealCount").onchange=e=>{mealCount=+e.target.value;generateMenu()};document.getElementById("generate").onclick=generateMenu;document.getElementById("shuffle").onclick=()=>{seed++;generateMenu()};
+document.getElementById("customKcal").onchange=e=>{let v=+e.target.value;if(v>=1000&&v<=3000){target=v;document.querySelectorAll("#calChips .chip").forEach(x=>x.classList.remove("active"));generateMenu()}};
+function hash(s){let h=2166136261;for(let i=0;i<s.length;i++)h=Math.imul(h^s.charCodeAt(i),16777619);return h}function shuffled(a){return a.slice().sort((x,y)=>hash(x.name+seed)-hash(y.name+seed))}
+function eligible(f){if(style==="Vegetarian")return !/pui|curcan|somon|ton|pește|cod/i.test(f.name);if(style==="Keto moderat")return !/clătite|terci|mămăligă|wrap|quinoa|sandwich|pâine|fructe/i.test(f.name);if(style==="Low-carb")return !/terci|clătite|mămăligă|wrap|pâine|quinoa/i.test(f.name);if(style==="Proteine + legume")return /ou|omlet|pui|curcan|somon|cod|ton|pește|iaurt|brânză/i.test(f.name);if(style==="Economic")return !/somon|avocado|quinoa|nuci|proteină/i.test(f.name);return true}
+function pick(meal,i){let a=shuffled(foods.filter(f=>f.meal===meal&&eligible(f)));return a[i%a.length]||foods.find(f=>f.meal===meal)}
+function scaleFood(f,factor){return {...f,kcal:Math.round(f.kcal*factor),items:f.items.map(x=>{let m=x.grams.match(/([0-9]+(?:\.[0-9]+)?)/);if(!m)return x;let n=Math.max(1,Math.round(+m[1]*factor));return {...x,grams:x.grams.replace(m[1],n)}})}}
+function generateMenu(){let wanted=mealCount===2?["Mic dejun","Cină"]:mealCount===4?["Mic dejun","Prânz","Gustare","Cină"]:["Mic dejun","Prânz","Cină"];let bases=wanted.map((m,i)=>pick(m,i+seed));let sum=bases.reduce((s,f)=>s+f.kcal,0),factor=target/sum;let menu=bases.map(f=>scaleFood(f,factor));renderMenu(menu);renderSummary(menu)}
+function renderSummary(menu){let total=menu.reduce((s,f)=>s+f.kcal,0);document.getElementById("summary").innerHTML=`<div class="stat"><b>${total} kcal</b><small>total meniu</small></div><div class="stat"><b>${menu.length}</b><small>mese</small></div><div class="stat"><b>${target}</b><small>ținta zilnică</small></div><div class="stat"><b>${style}</b><small>stil</small></div>`}
+function renderMenu(menu){document.getElementById("menu").innerHTML=menu.map(f=>`<article class="card"><img src="${f.img}" alt="${f.name}" loading="eager"><div class="cardBody"><div class="meal">${f.meal}</div><div class="title">${f.name}</div><div class="kcal">${f.kcal} kcal</div><div class="ingredients">${f.items.map(x=>`<div class="ingredient"><span>${x.name}</span><span>${x.grams}</span></div>`).join("")}</div></div></article>`).join("")}
+function renderGallery(){document.getElementById("gallery").innerHTML=foods.map(f=>`<article class="gcard"><img src="${f.img}" alt="${f.name}" loading="lazy"><div>${f.name}<small>${f.kcal} kcal</small></div></article>`).join("")}
+renderGallery();generateMenu();
 </script>
-</body>
-</html>
+</body></html>
